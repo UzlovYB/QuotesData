@@ -9,7 +9,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1132,2656</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1132,2481</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>RequestYahooFinance_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="38">
@@ -87,10 +87,9 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="RequestYahooFinance" sap:VirtualizedContainerService.HintSize="1005,2591" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="RequestYahooFinance" sap:VirtualizedContainerService.HintSize="711,2416" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Unix timestamp представление начальной даты" Name="StartPeriod" />
       <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Unix timestamp представление конечной даты" Name="EndPeriod" />
@@ -103,8 +102,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="963,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем котировки с сайта https://finance.yahoo.com/&quot;]" />
-    <Assign DisplayName="Assign StartPeriod" sap:VirtualizedContainerService.HintSize="963,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="669,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем котировки с сайта https://finance.yahoo.com/&quot;]" />
+    <Assign DisplayName="Assign StartPeriod" sap:VirtualizedContainerService.HintSize="669,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[StartPeriod]</OutArgument>
       </Assign.To>
@@ -112,7 +111,7 @@
         <InArgument x:TypeArguments="x:String">[Convert.ToString((Datetime.ParseExact(in_StartDate,"dd.MM.yyyy",System.Globalization.CultureInfo.InvariantCulture).ToUniversalTime() - New DateTime (1970, 1, 1)).TotalSeconds)]</InArgument>
       </Assign.Value>
     </Assign>
-    <Assign DisplayName="Assign EndPeriod" sap:VirtualizedContainerService.HintSize="963,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+    <Assign DisplayName="Assign EndPeriod" sap:VirtualizedContainerService.HintSize="669,60" sap2010:WorkflowViewState.IdRef="Assign_2">
       <Assign.To>
         <OutArgument x:TypeArguments="x:String">[EndPeriod]</OutArgument>
       </Assign.To>
@@ -120,7 +119,7 @@
         <InArgument x:TypeArguments="x:String">[Convert.ToString((Datetime.ParseExact(in_EndDate,"dd.MM.yyyy",System.Globalization.CultureInfo.InvariantCulture).ToUniversalTime() - New DateTime (1970, 1, 1)).TotalSeconds)]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" Username="{x:Null}" AcceptFormat="JSON" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Запрос котировок" EndPoint="[&quot;https://query1.finance.yahoo.com/v8/finance/chart/&quot; + ShortName + &quot;?&quot;]" sap:VirtualizedContainerService.HintSize="963,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[RequestResult]" StatusCode="[StatusCode]" TimeoutMS="6000">
+    <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" Username="{x:Null}" AcceptFormat="JSON" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Запрос котировок" EndPoint="[&quot;https://query1.finance.yahoo.com/v8/finance/chart/&quot; + ShortName + &quot;?&quot;]" sap:VirtualizedContainerService.HintSize="669,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[RequestResult]" StatusCode="[StatusCode]" TimeoutMS="6000">
       <ui:HttpClient.Attachments>
         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
       </ui:HttpClient.Attachments>
@@ -140,7 +139,7 @@
         <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
       </ui:HttpClient.UrlSegments>
     </ui:HttpClient>
-    <If Condition="[StatusCode.Equals(200)]" DisplayName="If StatusCode = 200" sap:VirtualizedContainerService.HintSize="963,2106" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[StatusCode.Equals(200)]" DisplayName="If StatusCode = 200" sap:VirtualizedContainerService.HintSize="669,1931" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -148,7 +147,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence DisplayName="Обрабатываем ответ" sap:VirtualizedContainerService.HintSize="718,1948" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence DisplayName="Обрабатываем ответ Yahoo Finance" sap:VirtualizedContainerService.HintSize="424,1773" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <Sequence.Variables>
             <Variable x:TypeArguments="scg:Dictionary(x:String, scg:List(njl:JToken))" sap2010:Annotation.AnnotationText="Словарь с данными из запроса&#xA;{timestamp, open, high, low, close, adjclose}" Default="[new Dictionary(of String, List(of Newtonsoft.Json.Linq.JToken))]" Name="ListValues" />
             <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Валюта котировок из запроса" Name="Currency" />
@@ -159,15 +158,15 @@
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="676,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Получили ответ.&quot;]" />
-          <Sequence DisplayName="Извлекаем данные из JsonResult" sap:VirtualizedContainerService.HintSize="676,22" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="382,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Получили ответ.&quot;]" />
+          <Sequence DisplayName="Извлекаем данные из JsonResult" sap:VirtualizedContainerService.HintSize="382,1488" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="scg:KeyValuePair(x:String, scg:List(njl:JToken))" sap2010:Annotation.AnnotationText="Элемент словаря с данными из запроса" Name="KVListData" />
               <Variable x:TypeArguments="njl:JObject" sap2010:Annotation.AnnotationText="Десериализованный результат запроса" Name="JsonResult" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
@@ -234,14 +233,14 @@
             <AddToCollection x:TypeArguments="scg:KeyValuePair(x:String, scg:List(njl:JToken))" Collection="[ListValues]" DisplayName="Add To Dict Values" sap:VirtualizedContainerService.HintSize="340,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3" Item="[KVListData]" />
             <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="340,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Trace" Message="[&quot;Извлекли типы цен.&quot;]" />
           </Sequence>
-          <Sequence DisplayName="Записываем в Excel" sap:VirtualizedContainerService.HintSize="676,1663" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <Sequence DisplayName="Записываем в Excel" sap:VirtualizedContainerService.HintSize="382,22" sap2010:WorkflowViewState.IdRef="Sequence_4">
             <Sequence.Variables>
               <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Выходная таблица данных" Name="dt_QuotesData" />
               <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Индекс элемента списка" Name="Indx" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
