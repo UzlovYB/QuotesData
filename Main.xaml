@@ -8,7 +8,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1132,827</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1132,871</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="24">
@@ -70,37 +70,54 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap:VirtualizedContainerService.HintSize="480,562" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap:VirtualizedContainerService.HintSize="480,806" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные за период: &quot; + in_StartDate + &quot; - &quot; + in_EndDate + &quot; ; Интервал: &quot; + in_Interval]" />
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,339" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,583" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
         <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Путь к файлу котировок S&amp;P 500" Name="SP500Path" />
       </TryCatch.Variables>
       <TryCatch.Try>
-        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\RequestYahooFinance.xaml">
-          <ui:InvokeWorkflowFile.Arguments>
-            <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">
-              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_StartDate" />
-            </InArgument>
-            <InArgument x:TypeArguments="x:String" x:Key="in_EndDate">
-              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_EndDate" />
-            </InArgument>
-            <InArgument x:TypeArguments="x:String" x:Key="in_QuotePath">
-              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_QuotePath" />
-            </InArgument>
-            <InArgument x:TypeArguments="x:String" x:Key="in_Interval">
-              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Interval" />
-            </InArgument>
-            <OutArgument x:TypeArguments="x:String" x:Key="out_SP500Path">
-              <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="SP500Path" />
-            </OutArgument>
-          </ui:InvokeWorkflowFile.Arguments>
-        </ui:InvokeWorkflowFile>
+        <Sequence sap:VirtualizedContainerService.HintSize="376,356" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\RequestYahooFinance.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_StartDate">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_StartDate" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_EndDate">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_EndDate" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_QuotePath">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_QuotePath" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Interval">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Interval" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SP500Path">
+                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="SP500Path" />
+              </OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,112" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Framework\RequestCBR.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_QuotePath">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_QuotePath" />
+              </InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_SP500Path">
+                <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="SP500Path" />
+              </InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </Sequence>
       </TryCatch.Try>
       <TryCatch.Catches>
         <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
