@@ -1,0 +1,6 @@
+/.settings/
+/.local/
+/.objects/
+~*
+*.json
+!project.json
