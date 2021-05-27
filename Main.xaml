@@ -79,12 +79,12 @@
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="438,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные за период: &quot; + in_StartDate + &quot; - &quot; + in_EndDate + &quot; ; Интервал: &quot; + in_Interval]" />
     <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,583" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Variables>
-        <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Путь к файлу котировок S&amp;P 500" Name="SP500Path" />
+        <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Путь к файлу котировок S&amp;P 500 USD" Name="SP500Path" />
       </TryCatch.Variables>
       <TryCatch.Try>
         <Sequence sap:VirtualizedContainerService.HintSize="376,356" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <Sequence.Variables>
-            <Variable x:TypeArguments="x:String" Name="SP500RURPath" />
+            <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Путь к файлу котировок S&amp;P 500 RUR" Name="SP500RURPath" />
           </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
