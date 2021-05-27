@@ -1,12 +1,13 @@
 {
-  "name": "QoutesData",
+  "name": "QuotesData",
   "description": "Получение данных по котировкам S&P 500 в пересчете на рубли",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.Mail.Activities": "[1.10.4]",
     "UiPath.System.Activities": "[21.4.0]",
-    "UiPath.UIAutomation.Activities": "[21.4.3]"
+    "UiPath.UIAutomation.Activities": "[21.4.3]",
+    "UiPath.WebAPI.Activities": "[1.7.0]"
   },
   "webServices": [],
   "entitiesStores": [],
