@@ -2,11 +2,12 @@
   <x:Members>
     <x:Property Name="in_QuotePath" Type="InArgument(x:String)" />
     <x:Property Name="in_SP500Path" Type="InArgument(x:String)" />
+    <x:Property Name="out_SP500RURPath" Type="OutArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1132,1590</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1132,827</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>RequestCBR_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="40">
@@ -80,7 +81,6 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
@@ -89,7 +89,7 @@
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="RequestCBR" sap:VirtualizedContainerService.HintSize="739,1525" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="RequestCBR" sap:VirtualizedContainerService.HintSize="476,515" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Таблица данных котировок" Name="dt_SPData" />
     </Sequence.Variables>
@@ -98,8 +98,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="697,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные по курсу USD/RUR с сайта cbr.ru&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="697,168" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" Visible="False" WorkbookPath="[in_SP500Path]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные по курсу USD/RUR с сайта cbr.ru&quot;]" />
+    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="434,168" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" Visible="False" WorkbookPath="[in_SP500Path]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -115,7 +115,7 @@
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SPData]" DisplayName="Each Row in dt_SPData" sap:VirtualizedContainerService.HintSize="697,1032" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SPData]" DisplayName="Each Row in dt_SPData" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
@@ -125,11 +125,7 @@
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" Name="RequestResult" />
               <Variable x:TypeArguments="x:Int32" Name="StatusCode" />
-              <Variable x:TypeArguments="x:Double" Name="ValCurs">
-                <Variable.Default>
-                  <mva:VisualBasicValue x:TypeArguments="x:Double" ExpressionText="Nothing" />
-                </Variable.Default>
-              </Variable>
+              <Variable x:TypeArguments="x:Double" Default="[Nothing]" Name="ValCurs" />
             </Sequence.Variables>
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -148,9 +144,7 @@
                 <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
               </ui:HttpClient.Headers>
               <ui:HttpClient.Parameters>
-                <InArgument x:TypeArguments="x:String" x:Key="date_req">
-                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="DateTime.ParseExact(CurrentRow(&quot;Date&quot;).ToString, &quot;dd.MM.yyyy&quot;, Globalization.CultureInfo.InvariantCulture).ToString(&quot;dd/MM/yyyy&quot;)" />
-                </InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="date_req">[DateTime.ParseExact(CurrentRow("Date").ToString, "dd.MM.yyyy", Globalization.CultureInfo.InvariantCulture).ToString("dd/MM/yyyy")]</InArgument>
               </ui:HttpClient.Parameters>
               <ui:HttpClient.UrlSegments>
                 <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
@@ -262,15 +256,12 @@
       </ui:ForEachRow.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
-    <Sequence DisplayName="Записываем в файл" sap:VirtualizedContainerService.HintSize="697,22" sap2010:WorkflowViewState.IdRef="Sequence_12">
-      <Sequence.Variables>
-        <Variable x:TypeArguments="x:String" Name="SP500RURPath" />
-      </Sequence.Variables>
+    <Sequence DisplayName="Записываем в файл" sap:VirtualizedContainerService.HintSize="434,22" sap2010:WorkflowViewState.IdRef="Sequence_12">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -279,13 +270,13 @@
       </sap:WorkflowViewStateService.ViewState>
       <Assign sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_8">
         <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[SP500RURPath]</OutArgument>
+          <OutArgument x:TypeArguments="x:String">[out_SP500RURPath]</OutArgument>
         </Assign.To>
         <Assign.Value>
           <InArgument x:TypeArguments="x:String">[in_QuotePath + "S&amp;P500_RUR.xlsx"]</InArgument>
         </Assign.Value>
       </Assign>
-      <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="434,196" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[SP500RURPath]">
+      <ui:ExcelApplicationScope Password="{x:Null}" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="434,196" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_3" InstanceCachePeriod="3000" Visible="False" WorkbookPath="[out_SP500RURPath]">
         <ui:ExcelApplicationScope.Body>
           <ActivityAction x:TypeArguments="ui:WorkbookApplication">
             <ActivityAction.Argument>
@@ -295,7 +286,7 @@
           </ActivityAction>
         </ui:ExcelApplicationScope.Body>
       </ui:ExcelApplicationScope>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Записали файл  &quot; + SP500RURPath]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Записали файл  &quot; + out_SP500RURPath]" />
     </Sequence>
   </Sequence>
 </Activity>

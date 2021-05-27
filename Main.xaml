@@ -83,6 +83,9 @@
       </TryCatch.Variables>
       <TryCatch.Try>
         <Sequence sap:VirtualizedContainerService.HintSize="376,356" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="SP500RURPath" />
+          </Sequence.Variables>
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -115,6 +118,9 @@
               <InArgument x:TypeArguments="x:String" x:Key="in_SP500Path">
                 <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="SP500Path" />
               </InArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SP500RURPath">
+                <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="SP500RURPath" />
+              </OutArgument>
             </ui:InvokeWorkflowFile.Arguments>
           </ui:InvokeWorkflowFile>
         </Sequence>
