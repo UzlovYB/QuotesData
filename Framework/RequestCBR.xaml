@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="RequestCBR" this:RequestCBR.in_SP500Path="C:\Users\rioka\Documents\UiPath\QoutesData\Data\Output\S&amp;P500_USD.xlsx" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="RequestCBR" this:RequestCBR.in_QuotePath="[Environment.CurrentDirectory]" this:RequestCBR.in_SP500Path="[Environment.CurrentDirectory + &quot;\Data\Output\S&amp;P500_USD.xlsx&quot;]" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sxl="clr-namespace:System.Xml.Linq;assembly=System.Xml.Linq" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_QuotePath" Type="InArgument(x:String)" />
     <x:Property Name="in_SP500Path" Type="InArgument(x:String)" />
@@ -7,7 +7,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1132,2087</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1201,1816</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>RequestCBR_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="40">
@@ -54,7 +54,7 @@
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
-    <scg:List x:TypeArguments="AssemblyReference" Capacity="33">
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="32">
       <AssemblyReference>System.Activities</AssemblyReference>
       <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
       <AssemblyReference>mscorlib</AssemblyReference>
@@ -89,17 +89,18 @@
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="RequestCBR" sap:VirtualizedContainerService.HintSize="739,2022" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="RequestCBR" sap:VirtualizedContainerService.HintSize="680,1711" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="sd:DataTable" sap2010:Annotation.AnnotationText="Таблица данных котировок" Name="dt_SPData" />
+      <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Индекс текущей строки" Name="RowIndex" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="697,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные по курсу USD/RUR с сайта cbr.ru&quot;]" />
-    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="697,168" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" Visible="False" WorkbookPath="[in_SP500Path]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="638,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Запрашиваем данные по курсу USD/RUR с сайта cbr.ru&quot;]" />
+    <ui:ExcelApplicationScope Password="{x:Null}" AutoSave="False" CreateNewFile="False" DisplayName="S&amp;P500.xlsx" sap:VirtualizedContainerService.HintSize="638,168" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" ReadOnly="True" Visible="False" WorkbookPath="[in_SP500Path]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
@@ -115,13 +116,13 @@
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
     </ui:ExcelApplicationScope>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_SPData]" DisplayName="Each Row in dt_SPData" sap:VirtualizedContainerService.HintSize="697,1032" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[RowIndex]" DataTable="[dt_SPData]" DisplayName="Each Row in dt_SPData" sap:VirtualizedContainerService.HintSize="638,1218" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Запрашиваем курс USD/RUR  по датам" sap:VirtualizedContainerService.HintSize="663,912" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Запрашиваем курс USD/RUR  по датам" sap:VirtualizedContainerService.HintSize="604,1098" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Результат запроса" Name="RequestResult" />
               <Variable x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="Код статуса запроса" Name="StatusCode" />
@@ -132,8 +133,8 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="621,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Запрос за &quot; + CurrentRow(&quot;Date&quot;).ToString]" />
-            <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Запрос курса USD/RUR" EndPoint="http://www.cbr.ru/scripts/XML_daily.asp" sap:VirtualizedContainerService.HintSize="621,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[RequestResult]" StatusCode="[StatusCode]" TimeoutMS="6000">
+            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="562,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Запрос за &quot; + CurrentRow(&quot;Date&quot;).ToString]" />
+            <ui:HttpClient Body="{x:Null}" ConsumerKey="{x:Null}" ConsumerSecret="{x:Null}" ContinueOnError="{x:Null}" OAuth1Token="{x:Null}" OAuth1TokenSecret="{x:Null}" OAuth2Token="{x:Null}" Password="{x:Null}" ResourcePath="{x:Null}" ResponseHeaders="{x:Null}" SecureClientCertificatePassword="{x:Null}" SecurePassword="{x:Null}" Username="{x:Null}" AcceptFormat="ANY" BodyFormat="application/xml" ClientCertificate="[Nothing]" ClientCertificatePassword="[Nothing]" DisplayName="Запрос курса USD/RUR" EndPoint="http://www.cbr.ru/scripts/XML_daily.asp" sap:VirtualizedContainerService.HintSize="562,22" sap2010:WorkflowViewState.IdRef="HttpClient_1" Method="GET" Result="[RequestResult]" StatusCode="[StatusCode]" TimeoutMS="6000">
               <ui:HttpClient.Attachments>
                 <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
               </ui:HttpClient.Attachments>
@@ -150,7 +151,7 @@
                 <scg:Dictionary x:TypeArguments="x:String, InArgument(x:String)" />
               </ui:HttpClient.UrlSegments>
             </ui:HttpClient>
-            <If Condition="[StatusCode.Equals(200)]" DisplayName="If StatusCode = 200" sap:VirtualizedContainerService.HintSize="621,565" sap2010:WorkflowViewState.IdRef="If_1">
+            <If Condition="[StatusCode.Equals(200)]" DisplayName="If StatusCode = 200" sap:VirtualizedContainerService.HintSize="562,208" sap2010:WorkflowViewState.IdRef="If_1">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -158,90 +159,76 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence DisplayName="Обрабатываем ответ cbr" sap:VirtualizedContainerService.HintSize="376,407" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                <Sequence DisplayName="Обрабатываем ответ cbr" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Sequence_5">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="sxl:XDocument" Name="XmlResult" />
+                    <Variable x:TypeArguments="sxl:XElement[]" sap2010:Annotation.AnnotationText="Массив XElement" Name="XEArray" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Извлекаем данные.&quot;]" />
-                  <ui:DeserializeXml DisplayName="Deserialize XML RequestResult" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="DeserializeXml_1" XMLDocument="[XmlResult]" XMLString="[RequestResult]" />
-                  <ui:ForEach x:TypeArguments="sxl:XElement" CurrentIndex="{x:Null}" DisplayName="Ищем курс USD" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[XmlResult.Element(&quot;ValCurs&quot;).Elements(&quot;Valute&quot;)]">
-                    <ui:ForEach.Body>
-                      <ActivityAction x:TypeArguments="sxl:XElement">
-                        <ActivityAction.Argument>
-                          <DelegateInArgument x:TypeArguments="sxl:XElement" Name="ValuteItem" />
-                        </ActivityAction.Argument>
-                        <If Condition="[ValuteItem.Attribute(&quot;ID&quot;).Value.ToString = &quot;R01235&quot;]" DisplayName="If ID Валюты подходит  USD" sap:VirtualizedContainerService.HintSize="484,460" sap2010:WorkflowViewState.IdRef="If_5">
-                          <If.Then>
-                            <Sequence sap:VirtualizedContainerService.HintSize="376,283" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                              <sap:WorkflowViewStateService.ViewState>
-                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                </scg:Dictionary>
-                              </sap:WorkflowViewStateService.ViewState>
-                              <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
-                                <Assign.To>
-                                  <OutArgument x:TypeArguments="x:Double">[ValCurs]</OutArgument>
-                                </Assign.To>
-                                <Assign.Value>
-                                  <InArgument x:TypeArguments="x:Double">[Convert.toDouble(ValuteItem.Element("Value").Value.Replace(",","."))]</InArgument>
-                                </Assign.Value>
-                              </Assign>
-                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;Курс: &quot; + ValCurs.ToString]" />
-                            </Sequence>
-                          </If.Then>
-                        </If>
-                      </ActivityAction>
-                    </ui:ForEach.Body>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="507,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;Извлекаем данные.&quot;]" />
+                  <ui:DeserializeXml DisplayName="Deserialize XML RequestResult" sap:VirtualizedContainerService.HintSize="507,60" sap2010:WorkflowViewState.IdRef="DeserializeXml_1" XMLDocument="[XmlResult]" XMLString="[RequestResult]" />
+                  <Assign DisplayName="Assign XEArray" sap:VirtualizedContainerService.HintSize="507,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="sxl:XElement[]">[XEArray]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="sxl:XElement[]">[XmlResult.Root.Elements("Valute").ToArray]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[XEArray.Any(Function(xe) xe.Attribute(&quot;ID&quot;).Value.Equals(&quot;R01235&quot;))]" DisplayName="Ищем курс USD в результате запроса" sap:VirtualizedContainerService.HintSize="507,208" sap2010:WorkflowViewState.IdRef="If_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                  </ui:ForEach>
-                  <If Condition="[IsNothing(ValCurs)]" DisplayName="Не установили курс USD" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="If_4">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Throw DisplayName="Ошибка Курс Nothing" Exception="[New Exception(&quot;Не нашли значение курса USD в результате запроса.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                      <Assign DisplayName="Assign ValCurs" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Double">[ValCurs]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Double">[Convert.toDouble(XEArray.Where(Function(xe) xe.Attribute("ID").Value.Equals("R01235")).Select(Function(xe) xe.Element("Value").Value)(0).Replace(",","."))]</InArgument>
+                        </Assign.Value>
+                      </Assign>
                     </If.Then>
+                    <If.Else>
+                      <Throw DisplayName="Ошибка Курс USD" Exception="[New Exception(&quot;Не нашли значение курса USD в результате запроса.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                    </If.Else>
                   </If>
+                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="507,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[&quot;Курс: &quot; + ValCurs.ToString]" />
                 </Sequence>
               </If.Then>
               <If.Else>
                 <Throw DisplayName="Ошибка запроса " Exception="[New Exception(&quot;Ошибка запроса курса за &quot; + CurrentRow(&quot;Date&quot;).ToString + &quot;. StatusCode = &quot; + StatusCode.ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
               </If.Else>
             </If>
-            <Sequence DisplayName="Меняем стоймость котировок согласно курсу" sap:VirtualizedContainerService.HintSize="621,22" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <Sequence DisplayName="Меняем стоймость котировок согласно курсу" sap:VirtualizedContainerService.HintSize="562,565" sap2010:WorkflowViewState.IdRef="Sequence_7">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each Column" sap:VirtualizedContainerService.HintSize="520,371" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[dt_SPData.Columns]">
+              <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each Column" sap:VirtualizedContainerService.HintSize="520,342" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[dt_SPData.Columns]">
                 <ui:ForEach.Body>
                   <ActivityAction x:TypeArguments="sd:DataColumn">
                     <ActivityAction.Argument>
                       <DelegateInArgument x:TypeArguments="sd:DataColumn" Name="CName" />
                     </ActivityAction.Argument>
-                    <If Condition="[not CName.ColumnName.Equals(&quot;Date&quot;)]" DisplayName="If не Дата" sap:VirtualizedContainerService.HintSize="484,237" sap2010:WorkflowViewState.IdRef="If_6">
+                    <If Condition="[not CName.ColumnName.Equals(&quot;Date&quot;)]" DisplayName="If не Дата" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_6">
                       <If.Then>
                         <Assign DisplayName="Assign Row Values" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_6">
                           <Assign.To>
-                            <OutArgument x:TypeArguments="x:Object">[dt_SPData(dt_SPData.Rows.IndexOf(CurrentRow))(CName.ColumnName)]</OutArgument>
+                            <OutArgument x:TypeArguments="x:Object">[dt_SPData(RowIndex)(CName.ColumnName)]</OutArgument>
                           </Assign.To>
                           <Assign.Value>
-                            <InArgument x:TypeArguments="x:Double">[Convert.ToDouble(dt_SPData(dt_SPData.Rows.IndexOf(CurrentRow))(CName.ColumnName)) * ValCurs]</InArgument>
+                            <InArgument x:TypeArguments="x:Object">[Convert.ToDouble(dt_SPData(dt_SPData.Rows.IndexOf(CurrentRow))(CName.ColumnName)) * ValCurs]</InArgument>
                           </Assign.Value>
                         </Assign>
                       </If.Then>
@@ -261,10 +248,10 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ForEachRow>
-    <Sequence DisplayName="Записываем в файл" sap:VirtualizedContainerService.HintSize="697,519" sap2010:WorkflowViewState.IdRef="Sequence_12">
+    <Sequence DisplayName="Записываем в файл" sap:VirtualizedContainerService.HintSize="638,22" sap2010:WorkflowViewState.IdRef="Sequence_12">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
